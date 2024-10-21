@@ -10,6 +10,7 @@ public class View {
     public View() {
         scanner = new Scanner(System.in);
     }
+
     public int showMenu() {
         System.out.println("****** Menu ******");
         System.out.println("1. Ingresar personas");
@@ -25,16 +26,30 @@ public class View {
         return new Person(name, age);
 
     }
-    public String inputName(){
+
+    public String inputName() {
         System.out.println("Ingrese el nombre: ");
         return scanner.next();
     }
-    public int inputAge(){
+
+    public int inputAge() {
         return inputInt("Ingrese la edad: ");
     }
 
     public int inputInt(String message) {
         System.out.println(message);
+        return scanner.nextInt();
+    }
+
+    public void showMessage(String message) {
+        System.out.println("LOG" + message);
+    }
+
+    public int selectSortingMethod() {
+        System.out.println("****** Ingrese la condicion a ordenar ******");
+        System.out.println("1. Por nombre");
+        System.out.println("2. Por edad");
+        System.out.println("Ingrese una opcion: ");
         return scanner.nextInt();
     }
 

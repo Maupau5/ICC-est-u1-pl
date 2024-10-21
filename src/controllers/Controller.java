@@ -21,15 +21,18 @@ public class Controller {
 
     public void start() {
         int option = 0;
-        do{
+        do {
             option = view.showMenu();
             switch (option) {
                 case 1:
-                inputPersons();
-                    
+                    inputPersons();
+
                     break;
                 case 2:
-                addPersons();
+                    addPersons();
+                    break;
+                case 3:
+                    sortPersons();
                     break;
                 case 100:
                     System.out.println("Adios");
@@ -40,32 +43,53 @@ public class Controller {
                     break;
             }
 
-        }while(option != 0);
+        } while (option != 0);
 
     }
+
     public void inputPersons() {
         int numeroPersonas = view.inputInt("Ingrese el numero de personas: ");
         personas = new Person[numeroPersonas];
-        for(int i=0; i < numeroPersonas; i++) {
+        for (int i = 0; i < numeroPersonas; i++) {
             personas[i] = view.inputPerson();
         }
 
     }
+
     public void addPersons() {
-        int numeroPersonas = view.inputInt("Ingrese el numero de personas a adicionar: ");
+        if (personas == null) {
+            view.showMessage("No exite, ingrese las personas por primera vez");
+            inputPersons();
+        } else {
+            int numeroPersonas = view.inputInt("Ingrese el numero de personas a adicionar: ");
 
-        Person[] personasTotales = new Person[personas.length + numeroPersonas];
-        for(int i = 0; i < personas.length; i++) {
-            personasTotales[i] = personas[i];
+            Person[] personasTotales = new Person[personas.length + numeroPersonas];
+            for (int i = 0; i < personas.length; i++) {
+                personasTotales[i] = personas[i];
+            }
+            for (int i = personas.length; i < personasTotales.length; i++) {
+                personas[i] = view.inputPerson();
+            }
+            personas = personasTotales;
+
         }
-        for(int i = personas.length; i < personasTotales.length; i++) {
-            personas[i] = view.inputPerson();
-        }
-        personas = personasTotales;
+
     }
+
     public void sortPersons() {
+        int sortingOption = view.selectSortingMethod();
+        if (sortingOption == 1) {
+            sortingMethods.sortByNameWithBubble(personas);
+
+        } else if (sortingOption == 2) {
+            sortingMethods.sortByNameWithSelection(personas);
+
+        } else {
+            view.showMessage("Opcion invalida");
+        }
 
     }
+
     public void searchPerson() {
 
     }
